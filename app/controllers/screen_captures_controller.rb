@@ -1,5 +1,7 @@
+require 'screen_capture_handler'
 class ScreenCapturesController < ApplicationController
   before_action :set_screen_capture, only: [:show, :update, :destroy]
+  after_action :send_the_file, only: [:create, :index]
 
   # GET /screen_captures
   def index
@@ -16,12 +18,16 @@ class ScreenCapturesController < ApplicationController
   # POST /screen_captures
   def create
     if params[:screen_capture][:url].present?
-      ScreenCapture.process_screen_capturing(params[:screen_capture][:url])
+      file_name = params[:screen_capture][:url].sub('https://','').split('.').first
+      ScreenCaptureHandler.new(params[:screen_capture][:url], 'file_name')
     end
     @screen_capture = ScreenCapture.new(screen_capture_params)
 
     if @screen_capture.save
-      render json: @screen_capture, status: :created, location: @screen_capture
+      send_file 'file_name.png', :type => 'image/png', :disposition => 'attachment'
+
+      # render json: @screen_capture, status: :created, location: @screen_capture
+      redirect_to url_for(action: 'download_file', method: :get)
     else
       render json: @screen_capture.errors, status: :unprocessable_entity
     end
@@ -41,11 +47,19 @@ class ScreenCapturesController < ApplicationController
     @screen_capture.destroy
   end
 
+  def download_file
+    send_file 'file_name.png', :type => 'image/png', :disposition => 'attachment'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_screen_capture
       @screen_capture = ScreenCapture.find(params[:id])
     end
+
+  def send_the_file
+    send_file 'file_name.png', :type => 'image/png', :disposition => 'attachment'
+  end
 
     # Only allow a trusted parameter "white list" through.
     def screen_capture_params

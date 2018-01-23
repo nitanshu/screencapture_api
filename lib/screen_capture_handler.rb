@@ -1,10 +1,11 @@
-# require 'selenium-webdriver'
-# require 'headless'
-
-module ScreenCaptureProcessing
-
-  def initialize(url)
-    @url =url
+class ScreenCaptureHandler
+  def initialize(url, file_name)
+    @url= url
+    @file_name = file_name
+    run do
+      @driver.get @url
+      @driver.save_screenshot file_name+'.png'
+    end
   end
 
   def setup
@@ -20,10 +21,5 @@ module ScreenCaptureProcessing
     setup
     yield
     teardown
-  end
-
-  run do
-    @driver.get @url
-    @driver.save_screenshot 'headless2_internal.png'
   end
 end
