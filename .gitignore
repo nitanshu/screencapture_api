@@ -20,6 +20,8 @@
 test/
 tmp/
 log/
+public/screenshots
+.env
 
 # Ignore Byebug command history file.
 .byebug_history

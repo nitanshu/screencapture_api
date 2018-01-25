@@ -42,3 +42,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'selenium-webdriver'
 gem 'headless'
 gem 'rack-cors'
+gem 'dotenv-rails'
