@@ -44,5 +44,5 @@ gem 'selenium-webdriver'
 gem 'headless'
 gem 'rack-cors'
 gem 'dotenv-rails'
-gem 'rails_12factor', group: :production
+gem 'rails_12factor'
 gem 'pg'
