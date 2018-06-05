@@ -44,5 +44,7 @@ gem 'selenium-webdriver'
 gem 'headless'
 gem 'rack-cors'
 gem 'dotenv-rails'
-gem 'rails_12factor'
-gem 'pg'
+group :production do
+  gem 'rails_12factor'
+  gem 'pg', '~> 0.21'
+end
