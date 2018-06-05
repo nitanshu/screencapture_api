@@ -19,7 +19,7 @@ class ScreenCaptureHandler
 
   def setup
     @headless = Headless.new(display: 100, reuse: true, destroy_at_exit: true).start
-    @driver = Selenium::WebDriver.for :firefox
+    @driver = Selenium::WebDriver.for :chrome
   end
 
   def teardown
