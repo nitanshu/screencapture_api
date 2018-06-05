@@ -17,6 +17,10 @@ class ScreenCapturesController < ApplicationController
     end
   end
 
+  def index
+    render text: 'App is working'
+  end
+
   private
     def set_screen_capture
       @screen_capture = ScreenCapture.find(params[:id])
